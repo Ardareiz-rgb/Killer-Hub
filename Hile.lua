@@ -1,4 +1,4 @@
--- Gelişmiş Killer Hub UI v1.2 (Ardox Tarafından Yapıldı)
+-- Gelişmiş Killer Hub UI v1.2 (Düzeltilmiş)
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -102,7 +102,7 @@ TabList.Padding = UDim.new(0,5)
 local Container = Instance.new("Frame",Main)
 Container.Size = UDim2.new(1,-130,1,-40)
 Container.Position = UDim2.new(0,130,0,40)
-Container.BackgroundColor3 = Color3.fromRGB(38,38,42)
+Container.BackgroundTransparency = 1
 
 local UIPageLayout = Instance.new("UIPageLayout",Container)
 UIPageLayout.FillDirection = Enum.FillDirection.Horizontal
