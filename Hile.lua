@@ -1,12 +1,17 @@
--- Gelişmiş Killer Hub UI v1.1
+-- Gelişmiş Killer Hub UI v1.2 (Ardox Tarafından Yapıldı)
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
+local MarketplaceService = game:GetService("MarketplaceService")
 local LocalPlayer = Players.LocalPlayer
 
--- Oyun ismini otomatik alalım
-local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name or "Game"
+-- Oyun ismini güvenli al
+local gameName = "Game"
+pcall(function()
+    gameName = MarketplaceService:GetProductInfo(game.PlaceId).Name or "Game"
+end)
 
+-- ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "KillerHub"
 ScreenGui.ResetOnSpawn = false
@@ -23,7 +28,7 @@ Main.Parent = ScreenGui
 local UICorner = Instance.new("UICorner", Main)
 UICorner.CornerRadius = UDim.new(0,12)
 
--- Fade-in
+-- Fade-in animasyon
 Main.BackgroundTransparency = 1
 TweenService:Create(Main,TweenInfo.new(0.4),{BackgroundTransparency=0}):Play()
 
@@ -33,13 +38,13 @@ TitleBar.Size = UDim2.new(1,0,0,40)
 TitleBar.BackgroundColor3 = Color3.fromRGB(28,28,30)
 
 local Title = Instance.new("TextLabel",TitleBar)
-Title.Text = "🔥 Killer Hub - "..gameName.." 🔥"
+Title.Text = "🔥 Killer Hub - "..gameName.." 🔥 | Ardox Tarafından Yapıldı"
 Title.Size = UDim2.new(1,-50,1,0)
 Title.Position = UDim2.new(0,10,0,0)
 Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.fromRGB(255,255,255)
 Title.Font = Enum.Font.GothamBold
-Title.TextSize = 20
+Title.TextSize = 18
 Title.TextXAlignment = Enum.TextXAlignment.Left
 
 -- Close button
@@ -196,6 +201,8 @@ function Window:CreateTab(name)
             Btn.BackgroundColor3 = toggled and Color3.fromRGB(70,200,70) or Color3.fromRGB(200,70,70)
             if callback then callback(toggled) end
         end)
+
+        if callback then callback(default) end -- ilk değer
     end
 
     return TabFunctions
@@ -217,5 +224,8 @@ end)
 PlayerTab:Toggle("Noclip",false,function(v)
     print("Noclip durumu:",v)
 end)
+
+-- Açılışta Main tab aktif olsun
+UIPageLayout:JumpTo(Window.Pages["Main"])
 
 return Window
